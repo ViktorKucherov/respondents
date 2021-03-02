@@ -37,9 +37,10 @@ print(list_of_questions)
 list_of_variants = data_frame_survey['Unnamed: 1'].values
 print(len(list_of_variants))
 
-respondent_name = 'Респондент 1'
-list_of_answers = data_frame_survey[respondent_name].values[:-2]
-print(len(list_of_answers))
+
+for column in data_frame_survey.columns[2:]:
+    list_of_answers = data_frame_survey[column].values
+    print(list_of_answers)
 
 result_df = pd.DataFrame(data=dictionary)
 result_df.to_excel("output.xlsx")
