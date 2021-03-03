@@ -1,7 +1,10 @@
-#!/bin/
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 import pandas as pd
 import numpy as np
 import re
+import unicodedata as ud
+
 
 respondents = "respondents.xlsx"  # обозначаем файл
 file = pd.ExcelFile(respondents)  # вызываем метод загрузки файла в объект
@@ -32,18 +35,17 @@ questions = [every_question for sublist in questions for every_question in subli
 
 variants = data_frame_survey[data_frame_survey.columns[1]].values
 
-byte_code = b"\xa0"
 
 
-for variant in variants:
-    print(str(variant))
-    for e in str(variant):
-        print(e)
-        e = re.sub(r'\S+', '', str(e))
-print(variants)
+print(f"НЕОТФОРМАТИРОВАННЫЙ ВАРИАНТ! {variants}")
+variants = re.sub(r'(?:\\xa0)+', '', str(variants))
+print(f"ОТФОРМАТИРОВАННЫЙ ВАРИАНТ! {variants}")
+
+
 for column in data_frame_survey.columns[2:]:
     answers = data_frame_survey[column].values
 
 
 result_df = pd.DataFrame(data=dictionary)
 result_df.to_excel("output.xlsx")
+print(0,"O")
